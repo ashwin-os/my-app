@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://exhr-4179/api/beta/users/admin@tenant-exhr-4179.com/currentCollections/LgAAAAAmVOYkFCXER4Ba5UnLANP0AQD4WnLZCrdYRpBMjLX8KsZBAAABpSQ9AAAB0';
+const BASE_URL = 'https://exhr-1744/api/beta/users/admin@tenant-exhr-1744.com/currentCollections/AsyncTasks';
 
 export { getItems, getParsedData };
 
@@ -8,15 +8,16 @@ export { getItems, getParsedData };
 
 function getItems() {
     const url = `${BASE_URL}/items`;
-    return axios.get(url, { headers: { Authorization: `Basic YWRtaW5AdGVuYW50LWV4aHItNDE3OS5jb206SiRwMXRlcg==`, Prefer: `exchange.behavior=\"OrgPartitions,ApplicationData\"` } }).then(response => response.data);
+    return axios.get(url, { headers: { Authorization: `Basic YWRtaW5AdGVuYW50LWV4aHItMTc0NC5jb206SiRwMXRlcg==`, Prefer: `exchange.behavior=ApplicationData`, Origin: `null`, 'Cache-Control': `no-cache` 
+} }).then(response => response.data);
 }
 
 function getParsedData() {
     var dat = getData();
     var retValue = dat.value.map(val => {
         var prog = val.Status === "Success" ? 100 : val.Status === "NotYetStarted" ? 0: Math.floor(Math.random() * 100);
-        var time = Math.round(Math.random() * 500);
-        var timems = time + " ms";
+        var time = val.Status === "Success" ? Math.round(Math.random() * 500) : 0;
+        var timems = time === 0 ? '-' : time + " ms";
         return {
             JobId: val.Id,
             progress: prog,

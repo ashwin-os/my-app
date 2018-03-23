@@ -86,6 +86,7 @@ class App extends React.Component {
                     {
                         Header: 'Time Taken',
                         accessor: 'TotalTime',
+                        id: 'tt',
                         Cell: row => (
                             <div className="center">
                             <span className="center">
@@ -95,6 +96,12 @@ class App extends React.Component {
 
                         )
                     }]}
+                    defaultSorted={[
+                        {
+                          id: "tt",
+                          desc: true
+                        }
+                      ]}
                     defaultPageSize={data.length}
                     className="-striped -highlight"
                 />
